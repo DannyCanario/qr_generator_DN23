@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+body {
+  background-color: #040406;
+  color: #ffffff;
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Panel principal con acabado de titanio oscuro y cristal */
+.hud-panel {
+  background: linear-gradient(145deg, rgba(18, 18, 23, 0.78) 0%, rgba(7, 7, 10, 0.92) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.85),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 1px 0 rgba(0, 229, 255, 0.25);
+}
+
+/* Contenedor metálico del QR */
+.qr-holo-frame {
+  background: linear-gradient(160deg, rgba(24, 24, 30, 0.9), rgba(9, 9, 12, 0.95));
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  box-shadow: 
+    0 0 35px rgba(0, 123, 255, 0.2),
+    inset 0 0 20px rgba(0, 229, 255, 0.06);
+}
+
+/* Efecto de destello metálico al pasar el cursor */
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.28),
+    transparent
+  );
+  transform: skewX(-25deg);
+  transition: left 0.6s ease;
+}
+
+.shimmer-btn:hover::after {
+  left: 140%;
+}
