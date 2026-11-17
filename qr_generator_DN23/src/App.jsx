@@ -10,7 +10,7 @@ import {
   Zap,
   ClipboardPaste,
   X,
-  Sparkles,
+  Palette,
 } from 'lucide-react';
 import { QrPreview } from './components/QrPreview';
 import { CyberBackground } from './components/CyberBackground';
@@ -18,55 +18,50 @@ import { useQrActions } from './hooks/useQrActions';
 
 export default function App() {
   const [url, setUrl] = useState('https://github.com');
-  const [fgColor, setFgColor] = useState('#00E5FF');
-  const [bgColor, setBgColor] = useState('#070B14');
+  // Iniciamos con una combinación impactante: Midnight Purple & Neón Magenta
+  const [fgColor, setFgColor] = useState('#F43F5E');
+  const [bgColor, setBgColor] = useState('#0B0710');
   const qrRef = useRef(null);
 
   const { downloadQr, copyQrToClipboard } = useQrActions(qrRef);
 
-  // Ampliación a 6 acabados metálicos con gradientes de textura
+  // NUEVOS PATRONES DE COLORES VARIADOS Y DE ALTA GAMA
   const colorPresets = [
     {
-      name: 'Cian Neón',
-      fg: '#00E5FF',
-      bg: '#070B14',
-      borderGlow: 'rgba(0, 229, 255, 0.4)',
-      accent: 'text-[#00E5FF]',
+      name: 'Neon Cyber',
+      fg: '#F43F5E', // Rosa Neón Vibrante
+      bg: '#0B0710', // Morado Noche Profundo
+      borderGlow: 'rgba(244, 63, 94, 0.4)',
     },
     {
-      name: 'Azul Eléctrico',
-      fg: '#007BFF',
-      bg: '#040711',
-      borderGlow: 'rgba(0, 123, 255, 0.4)',
-      accent: 'text-[#007BFF]',
+      name: 'Emerald Matrix',
+      fg: '#10B981', // Esmeralda Brillante
+      bg: '#030E09', // Negro Verdoso Oscuro
+      borderGlow: 'rgba(16, 185, 129, 0.4)',
     },
     {
-      name: 'Voltaje Oro',
-      fg: '#FACC15',
-      bg: '#090805',
-      borderGlow: 'rgba(250, 204, 21, 0.4)',
-      accent: 'text-[#FACC15]',
+      name: 'Electric Indigo',
+      fg: '#8B5CF6', // Índigo Neón
+      bg: '#080513', // Azul Oscuro Espacial
+      borderGlow: 'rgba(139, 92, 246, 0.4)',
     },
     {
-      name: 'Titanio Oscuro',
-      fg: '#E4E4E7',
-      bg: '#18181B',
-      borderGlow: 'rgba(228, 228, 231, 0.3)',
-      accent: 'text-zinc-200',
-    },
-    {
-      name: 'Cromo Ártico',
-      fg: '#38BDF8',
-      bg: '#0B132B',
-      borderGlow: 'rgba(56, 189, 248, 0.4)',
-      accent: 'text-[#38BDF8]',
-    },
-    {
-      name: 'Magma Solar',
-      fg: '#FB923C',
-      bg: '#110704',
+      name: 'Cyber Sunset',
+      fg: '#FB923C', // Naranja Atardecer
+      bg: '#120804', // Carbón Cálido
       borderGlow: 'rgba(251, 146, 60, 0.4)',
-      accent: 'text-[#FB923C]',
+    },
+    {
+      name: 'Ice Cyan',
+      fg: '#06B6D4', // Cian Intenso
+      bg: '#040E12', // Azul Hielo Oscuro
+      borderGlow: 'rgba(6, 182, 212, 0.4)',
+    },
+    {
+      name: 'Pure Titanium',
+      fg: '#FAFAFA', // Blanco Puro Metálico
+      bg: '#121217', // Gris Titanio
+      borderGlow: 'rgba(250, 250, 250, 0.25)',
     },
   ];
 
@@ -76,7 +71,7 @@ export default function App() {
       if (text) {
         setUrl(text);
         toast.success('Enlace pegado desde el portapapeles', {
-          style: { background: '#09090b', color: '#00e5ff', border: '1px solid #007bff' },
+          style: { background: '#09090b', color: '#06B6D4', border: '1px solid #06B6D4' },
         });
       }
     } catch {
@@ -85,7 +80,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen text-white flex flex-col items-center justify-center p-4 sm:p-6 relative selection:bg-[#00E5FF] selection:text-black">
+    <div className="min-h-screen text-white flex flex-col items-center justify-center p-4 sm:p-6 relative selection:bg-[#06B6D4] selection:text-black">
       {/* Fondo futurista animado */}
       <CyberBackground />
 
@@ -95,7 +90,7 @@ export default function App() {
         initial={{ y: 25, opacity: 0, scale: 0.96 }}
         animate={{ y: 0, opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="w-full max-w-xl hud-panel rounded-3xl p-6 sm:p-8 backdrop-blur-2xl relative z-10"
+        className="w-full max-w-xl hud-panel rounded-[2rem] p-6 sm:p-8 backdrop-blur-2xl relative z-10"
       >
         {/* Cabecera */}
         <div className="flex items-center justify-between mb-7">
@@ -103,41 +98,44 @@ export default function App() {
             <motion.div
               whileHover={{ rotate: 90 }}
               transition={{ type: 'spring', stiffness: 250 }}
-              className="p-3 bg-gradient-to-br from-[#007BFF]/30 to-[#00E5FF]/10 border border-[#00E5FF]/50 rounded-2xl text-[#00E5FF] shadow-[0_0_20px_rgba(0,229,255,0.25)] cursor-pointer"
+              className="p-3 bg-gradient-to-br from-white/10 to-white/5 border border-white/20 rounded-2xl text-white shadow-xl cursor-pointer"
             >
-              <QrCode size={28} />
+              <QrCode size={28} style={{ color: fgColor }} />
             </motion.div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-2xl font-black tracking-tight bg-gradient-to-r from-white via-zinc-100 to-zinc-400 bg-clip-text text-transparent">
+                <h1 className="text-2xl font-black tracking-tight bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
                   QR Generator
                 </h1>
-                <span className="px-2 py-0.5 text-xs font-extrabold bg-[#FACC15]/15 text-[#FACC15] border border-[#FACC15]/40 rounded-md shadow-[0_0_10px_rgba(250,204,21,0.2)]">
+                <span 
+                  className="px-2 py-0.5 text-xs font-extrabold rounded-md shadow-md"
+                  style={{ backgroundColor: `${fgColor}25`, color: fgColor, border: `1px solid ${fgColor}50` }}
+                >
                   DN23
                 </span>
               </div>
               <p className="text-xs text-zinc-400 flex items-center gap-1.5 mt-0.5">
-                <Cpu size={12} className="text-[#00E5FF]" /> Sistema óptico instantáneo
+                <Cpu size={12} style={{ color: fgColor }} /> Sistema óptico avanzado
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[11px] font-semibold text-[#FACC15]">
-            <Zap size={13} className="fill-[#FACC15]" />
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[11px] font-semibold text-zinc-300">
+            <Zap size={13} style={{ color: fgColor }} className="fill-current" />
             <span>ONLINE</span>
           </div>
         </div>
 
-        {/* Input dinámico con botones de Pegar y Limpiar */}
+        {/* Input dinámico */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-2">
             <label className="text-xs font-bold uppercase tracking-wider text-zinc-400">
-              URL de Destino
+              URL deseado
             </label>
             <button
               type="button"
               onClick={handlePaste}
-              className="text-xs text-[#00E5FF] hover:text-[#FACC15] flex items-center gap-1 transition-colors cursor-pointer font-medium"
+              className="text-xs hover:text-white flex items-center gap-1 transition-colors cursor-pointer font-medium text-zinc-400"
             >
               <ClipboardPaste size={13} /> Pegar enlace
             </button>
@@ -145,15 +143,18 @@ export default function App() {
 
           <div className="relative flex items-center group">
             <Link2
-              className="absolute left-4 text-zinc-500 group-focus-within:text-[#00E5FF] transition-colors"
+              className="absolute left-4 text-zinc-500 transition-colors"
               size={18}
             />
             <input
               type="url"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
-              placeholder="https://introduce-tu-enlace.com"
-              className="w-full pl-12 pr-10 py-3.5 bg-black/50 border border-zinc-700/70 rounded-2xl text-white placeholder-zinc-600 focus:outline-none focus:border-[#00E5FF] focus:shadow-[0_0_20px_rgba(0,229,255,0.2)] backdrop-blur-md transition-all text-sm"
+              placeholder="https:..."
+              className="w-full pl-12 pr-10 py-3.5 bg-black/50 border border-zinc-700/70 rounded-2xl text-white placeholder-zinc-600 focus:outline-none backdrop-blur-md transition-all text-sm"
+              style={{
+                borderColor: undefined,
+              }}
             />
             <AnimatePresence>
               {url && (
@@ -172,14 +173,14 @@ export default function App() {
           </div>
         </div>
 
-        {/* Selector de Acabados Metálicos Mejorado Visualmente */}
+        {/* Selector de Patrones de Color Mejorados */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">
-              Aleación & Acabado Metálico
+            <span className="text-xs font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1.5">
+              <Palette size={13} /> Patrones de Color Estilizados
             </span>
-            <span className="text-[10px] text-zinc-500 flex items-center gap-1">
-              <Sparkles size={11} className="text-[#FACC15]" /> 6 Patrones Disponibles
+            <span className="text-[10px] text-zinc-500 font-medium">
+              6 Temas Disponibles
             </span>
           </div>
 
@@ -205,19 +206,19 @@ export default function App() {
                     boxShadow: isSelected ? `0 0 20px ${preset.borderGlow}` : undefined,
                   }}
                 >
-                  {/* Luz de estado activa en la esquina superior derecha */}
+                  {/* Punto indicador activo */}
                   {isSelected && (
                     <motion.div
                       layoutId="activeGlow"
                       className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full shadow-md"
                       style={{
                         backgroundColor: preset.fg,
-                        boxShadow: `0 0 8px ${preset.fg}`,
+                        boxShadow: `0 0 10px ${preset.fg}`,
                       }}
                     />
                   )}
 
-                  {/* Vista previa de textura dual en miniatura */}
+                  {/* Vista previa miniatura de los colores */}
                   <div className="flex items-center gap-2">
                     <div
                       className="w-6 h-6 rounded-lg border border-white/20 shadow-inner flex items-center justify-center relative overflow-hidden"
@@ -228,8 +229,8 @@ export default function App() {
                         style={{ backgroundColor: preset.fg }}
                       />
                     </div>
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-300">
-                      Metals
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">
+                      Tema
                     </span>
                   </div>
 
@@ -246,21 +247,21 @@ export default function App() {
           </div>
         </div>
 
-        {/* Vista Previa del QR */}
+        {/* Vista Previa del QR Mejorada */}
         <div className="flex justify-center mb-8" ref={qrRef}>
           <QrPreview url={url} fgColor={fgColor} bgColor={bgColor} />
         </div>
 
-        {/* Botones de Acción con efecto brillo metálico */}
+        {/* Botones de Acción */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => downloadQr('qr_generator_DN23.png')}
             disabled={!url.trim()}
-            className="shimmer-btn flex items-center justify-center gap-2.5 py-4 px-6 rounded-2xl font-bold text-sm bg-gradient-to-r from-[#007BFF] via-[#0066d6] to-[#004c9e] text-white shadow-[0_0_25px_rgba(0,123,255,0.4)] border border-[#00E5FF]/40 transition-all cursor-pointer disabled:opacity-40"
+            className="shimmer-btn flex items-center justify-center gap-2.5 py-4 px-6 rounded-2xl font-bold text-sm bg-gradient-to-r from-zinc-800 to-zinc-900 text-white shadow-xl border border-white/10 transition-all cursor-pointer disabled:opacity-40 hover:border-white/30"
           >
-            <Download size={18} className="text-[#00E5FF]" />
+            <Download size={18} style={{ color: fgColor }} />
             Descargar PNG
           </motion.button>
 
@@ -269,7 +270,10 @@ export default function App() {
             whileTap={{ scale: 0.97 }}
             onClick={copyQrToClipboard}
             disabled={!url.trim()}
-            className="shimmer-btn flex items-center justify-center gap-2.5 py-4 px-6 rounded-2xl font-bold text-sm bg-gradient-to-r from-[#FACC15] via-[#eab308] to-[#ca8a04] text-black shadow-[0_0_25px_rgba(250,204,21,0.3)] border border-yellow-200/50 transition-all cursor-pointer disabled:opacity-40"
+            className="shimmer-btn flex items-center justify-center gap-2.5 py-4 px-6 rounded-2xl font-bold text-sm text-black shadow-xl border border-white/20 transition-all cursor-pointer disabled:opacity-40"
+            style={{
+              background: `linear-gradient(135deg, ${fgColor}, #ffffff)`,
+            }}
           >
             <Copy size={18} />
             Copiar Imagen
